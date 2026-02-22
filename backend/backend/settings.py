@@ -53,8 +53,12 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'Hotel reservation',
+        'USER': 'postgres',
+        'PASSWORD': 'Rakey@08',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
@@ -81,3 +85,4 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ],
 }
+

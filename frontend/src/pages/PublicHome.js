@@ -74,7 +74,13 @@ function PublicHome() {
   const roomImage = (roomType) => {
     if (!roomType) return ROOM_TYPE_IMAGES.default;
     const normalizedType = roomType.trim().toLowerCase();
-    return ROOM_TYPE_IMAGES[normalizedType] || ROOM_TYPE_IMAGES.default;
+    if (ROOM_TYPE_IMAGES[normalizedType]) return ROOM_TYPE_IMAGES[normalizedType];
+    if (normalizedType.includes("single")) return ROOM_TYPE_IMAGES.single;
+    if (normalizedType.includes("double")) return ROOM_TYPE_IMAGES.double;
+    if (normalizedType.includes("deluxe")) return ROOM_TYPE_IMAGES.deluxe;
+    if (normalizedType.includes("suite")) return ROOM_TYPE_IMAGES.suite;
+    if (normalizedType.includes("family")) return ROOM_TYPE_IMAGES.family;
+    return ROOM_TYPE_IMAGES.default;
   };
 
   return (
