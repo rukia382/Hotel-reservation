@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 
-import API_BASE_URL from "../api";
+import { API_BASE_URL } from "../api";
 
 const initialRoom = {
   room_number: "",

@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import axios from "axios";
 
-import API_BASE_URL from "../api";
+import { API_BASE_URL } from "../api";
 
 function todayPlus(days) {
   const d = new Date();
