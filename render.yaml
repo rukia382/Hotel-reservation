@@ -1,5 +1,6 @@
 databases:
   - name: hotel-db
+    plan: free
     databaseName: hotel_reservation
     user: hotel_user
 
