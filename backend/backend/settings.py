@@ -57,14 +57,23 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'backend.wsgi.application'
 
-DATABASE_URL = os.getenv('DATABASE_URL')
+DATABASE_URL = os.getenv(
+    'DATABASE_URL',
+    'postgresql://neondb_owner:npg_a9MHA2brixOk@ep-gentle-water-ai4fnoj1-pooler.c-4.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require',
+)
 if DATABASE_URL:
     # Render provides postgres URL in DATABASE_URL.
     # Format: postgres://USER:PASSWORD@HOST:PORT/NAME
     db_url = DATABASE_URL.replace('postgres://', 'postgresql://', 1)
-    from urllib.parse import urlparse
+    from urllib.parse import parse_qs, urlparse
 
     parsed = urlparse(db_url)
+    query = parse_qs(parsed.query)
+    db_options = {}
+    if 'sslmode' in query and query['sslmode']:
+        db_options['sslmode'] = query['sslmode'][0]
+    if 'channel_binding' in query and query['channel_binding']:
+        db_options['channel_binding'] = query['channel_binding'][0]
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
@@ -73,6 +82,7 @@ if DATABASE_URL:
             'PASSWORD': parsed.password,
             'HOST': parsed.hostname,
             'PORT': str(parsed.port or 5432),
+            'OPTIONS': db_options,
         }
     }
 else:
